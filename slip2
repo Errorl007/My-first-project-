@@ -1,0 +1,123 @@
+Slip 2
+
+1. A) Write a java program to display all the vowels from a given string.	[15 M]
+import java.util.Scanner;
+
+public class DisplayVowels {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+        
+        System.out.print("Vowels in the given string are: ");
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            if (isVowel(ch)) {
+                System.out.print(ch + " ");
+            }
+        }
+    }
+
+    public static boolean isVowel(char ch) {
+        ch = Character.toLowerCase(ch);
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+    }
+}
+
+B) Design a screen in Java to handle the Mouse Events such as MOUSE_MOVED and MOUSE_CLICK and display the position of the Mouse_Click in a TextField.
+[25 M]
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class MouseEventDemo extends JFrame implements MouseListener, MouseMotionListener {
+    private JTextField textField;
+
+    public MouseEventDemo() {
+        setTitle("Mouse Event Demo");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        textField = new JTextField(20);
+        textField.setEditable(false);
+        add(textField);
+
+        addMouseListener(this);
+        addMouseMotionListener(this);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        textField.setText("Mouse Clicked at (" + e.getX() + ", " + e.getY() + ")");
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // Optional: Display mouse move coordinates if needed
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
+    @Override
+    public void mouseDragged(MouseEvent e) {}
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MouseEventDemo demo = new MouseEventDemo();
+            demo.setVisible(true);
+        });
+    }
+}
+
+Q.2	Python:
+A)	Write a Python function that accepts a string and calculate the number of upper case letters and lower case letters.
+Sample String: 'The quick Brown Fox'
+Expected Output:
+No. of Upper case characters: 3
+No. of Lower case characters: 13	[15 M]
+def count_upper_lower(s):
+    upper_count = 0
+    lower_count = 0
+    for char in s:
+        if char.isupper():
+            upper_count += 1
+        elif char.islower():
+            lower_count += 1
+    return upper_count, lower_count
+
+# Sample string
+sample_string = 'The quick Brown Fox'
+upper, lower = count_upper_lower(sample_string)
+print(f"No. of Upper case characters: {upper}")
+print(f"No. of Lower case characters: {lower}")
+B)	Write Python GUI program to create a digital clock with Tkinter to display the time.
+[25 M]
+import tkinter as tk
+import time
+
+def update_time():
+    current_time = time.strftime('%H:%M:%S %p')
+    clock_label.config(text=current_time)
+    clock_label.after(1000, update_time)
+
+# Create the main window
+root = tk.Tk()
+root.title("Digital Clock")
+
+# Create and configure the clock label
+clock_label = tk.Label(root, font=('Helvetica', 48), bg='black', fg='white')
+clock_label.pack(anchor='center')
+
+# Start the clock
+update_time()
+
+# Run the Tkinter event loop
+root.mainloop()
+
