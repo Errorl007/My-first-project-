@@ -1,0 +1,88 @@
+
+
+Slip 5
+A)	Write a java program to display following pattern: 5
+4 5
+3 4 5
+2 3 4 5
+1 2 3 4 5	[15 M]
+public class NumberPattern {
+    public static void main(String[] args) {
+        int n = 5; // Number of rows
+
+        for (int i = n; i >= 1; i--) {
+            for (int j = i; j <= n; j++) {
+                System.out.print(j + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+B)	Write a java program to accept list of file names through command line. Delete the files having extension .txt. Display name, location and size of remaining files.
+[25 M]
+import java.io.File;
+
+public class FileHandler {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("No files provided.");
+            return;
+        }
+
+        for (String fileName : args) {
+            File file = new File(fileName);
+
+            if (file.exists()) {
+                if (fileName.endsWith(".txt")) {
+                    if (file.delete()) {
+                        System.out.println("Deleted: " + fileName);
+                    } else {
+                        System.out.println("Failed to delete: " + fileName);
+                    }
+                } else {
+                    System.out.println("File Name: " + file.getName());
+                    System.out.println("Location: " + file.getAbsolutePath());
+                    System.out.println("Size: " + file.length() + " bytes");
+                }
+            } else {
+                System.out.println("File not found: " + fileName);
+            }
+        }
+    }
+}
+
+Q.2	Python:
+A)	Write a Python script using class, which has two methods get_String and print_String. get_String accept a string from the user and print_String print the string in upper case.	[15 M]
+class StringManipulator:
+    def __init__(self):
+        self.string = ""
+
+    def get_String(self):
+        self.string = input("Enter a string: ")
+
+    def print_String(self):
+        print(self.string.upper())
+
+# Create an instance of the class
+string_manipulator = StringManipulator()
+
+# Get the string from the user
+string_manipulator.get_String()
+
+# Print the string in uppercase
+string_manipulator.print_String()
+
+B)	Write a python script to generate Fibonacci terms using generator function.
+[25 M]
+def fibonacci_generator():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+# Create a generator object
+fib_gen = fibonacci_generator()
+
+# Generate and print the first 10 Fibonacci terms
+for _ in range(10):
+    print(next(fib_gen))
