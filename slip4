@@ -1,0 +1,193 @@
+
+
+Slip 4
+A)	Write a java program to display alternate character from a given string.[15 M]
+public class AlternateCharacters {
+    public static void main(String[] args) {
+        String input = "HelloWorld";
+        System.out.println("Original String: " + input);
+        System.out.print("Alternate Characters: ");
+        
+        for (int i = 0; i < input.length(); i += 2) {
+            System.out.print(input.charAt(i));
+        }
+    }
+}
+B)	Write a java program using Applet to implement a simple arithmetic calculator.
+
+[25 M]
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+
+/* <applet code="CalculatorApplet" width=300 height=400> </applet> */
+
+public class CalculatorApplet extends Applet implements ActionListener {
+    TextField display;
+    Button[] numberButtons = new Button[10];
+    Button addButton, subButton, mulButton, divButton, eqButton, clrButton;
+    String operator;
+    double num1, num2, result;
+
+    public void init() {
+        setLayout(new BorderLayout());
+
+        display = new TextField();
+        add(display, BorderLayout.NORTH);
+
+        Panel panel = new Panel();
+        panel.setLayout(new GridLayout(4, 4));
+
+        for (int i = 0; i < 10; i++) {
+            numberButtons[i] = new Button(String.valueOf(i));
+            numberButtons[i].addActionListener(this);
+            panel.add(numberButtons[i]);
+        }
+
+        addButton = new Button("+");
+        subButton = new Button("-");
+        mulButton = new Button("*");
+        divButton = new Button("/");
+        eqButton = new Button("=");
+        clrButton = new Button("C");
+
+        addButton.addActionListener(this);
+        subButton.addActionListener(this);
+        mulButton.addActionListener(this);
+        divButton.addActionListener(this);
+        eqButton.addActionListener(this);
+        clrButton.addActionListener(this);
+
+        panel.add(addButton);
+        panel.add(subButton);
+        panel.add(mulButton);
+        panel.add(divButton);
+        panel.add(eqButton);
+        panel.add(clrButton);
+
+        add(panel, BorderLayout.CENTER);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        if (command.charAt(0) >= '0' && command.charAt(0) <= '9') {
+            display.setText(display.getText() + command);
+        } else if (command.equals("+")) {
+            num1 = Double.parseDouble(display.getText());
+            operator = "+";
+            display.setText("");
+        } else if (command.equals("-")) {
+            num1 = Double.parseDouble(display.getText());
+            operator = "-";
+            display.setText("");
+        } else if (command.equals("*")) {
+            num1 = Double.parseDouble(display.getText());
+            operator = "*";
+            display.setText("");
+        } else if (command.equals("/")) {
+            num1 = Double.parseDouble(display.getText());
+            operator = "/";
+            display.setText("");
+        } else if (command.equals("=")) {
+            num2 = Double.parseDouble(display.getText());
+            switch (operator) {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+                case "/":
+                    result = num1 / num2;
+                    break;
+            }
+            display.setText(String.valueOf(result));
+        } else if (command.equals("C")) {
+            display.setText("");
+        }
+    }
+}
+Q.2	Python:
+A)	Write Python GUI program to create background with changing colors [15 M]
+import tkinter as tk
+import random
+
+# Function to change the background color
+def change_color():
+    colors = ["red", "green", "blue", "yellow", "purple", "orange", "pink", "cyan"]
+    color = random.choice(colors)
+    root.configure(bg=color)
+    root.after(1000, change_color)  # Change color every 1000 milliseconds (1 second)
+
+# Create the main window
+root = tk.Tk()
+root.title("Color Changing Background")
+root.geometry("400x300")
+
+# Start the color change loop
+change_color()
+
+# Run the application
+root.mainloop()
+B)	Define a class Employee having members id, name, department, salary. Create a subclass called manager with member bonus. Define methods accept and display in both the classes. Create n objects of the manager class and display the details of the manager having the maximum total salary (salary+bonus).	[25 M]
+class Employee:
+    def __init__(self):
+        self.id = None
+        self.name = None
+        self.department = None
+        self.salary = None
+
+    def accept(self):
+        self.id = input("Enter Employee ID: ")
+        self.name = input("Enter Employee Name: ")
+        self.department = input("Enter Department: ")
+        self.salary = float(input("Enter Salary: "))
+
+    def display(self):
+        print(f"ID: {self.id}")
+        print(f"Name: {self.name}")
+        print(f"Department: {self.department}")
+        print(f"Salary: {self.salary}")
+
+class Manager(Employee):
+    def __init__(self):
+        super().__init__()
+        self.bonus = None
+
+    def accept(self):
+        super().accept()
+        self.bonus = float(input("Enter Bonus: "))
+
+    def display(self):
+        super().display()
+        print(f"Bonus: {self.bonus}")
+        print(f"Total Salary: {self.salary + self.bonus}")
+
+# Function to find and display the manager with the maximum total salary
+def find_max_salary_manager(managers):
+    max_salary = -1
+    max_salary_manager = None
+    for manager in managers:
+        total_salary = manager.salary + manager.bonus
+        if total_salary > max_salary:
+            max_salary = total_salary
+            max_salary_manager = manager
+    return max_salary_manager
+
+# Main program
+n = int(input("Enter the number of managers: "))
+managers = []
+
+for _ in range(n):
+    manager = Manager()
+    manager.accept()
+    managers.append(manager)
+
+max_salary_manager = find_max_salary_manager(managers)
+
+print("\nManager with the Maximum Total Salary:")
+max_salary_manager.display()
